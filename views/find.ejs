@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: solid 2px gray;
+        }
+
+        td,
+        th {
+            padding: 5px;
+        }
+
+        th {
+            background-color: #cde;
+        }
+    </style>
+    <script>
+        function deleteUser(id) {
+            if (confirm('ยืนยันการลบ')) {
+                location.href = '/delete/' + id
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <a href="/">กลับหน้าเเรก</a><br><br>
+    <h4>รายการข้อมูล</h4>
+    <% if (locals.data) { %>
+        <table border="1">
+        <tr><th>Edit</th><th>Date</th><th>คำนำหน้าชื่อ</th><th>ชื่อ</th><th>นามสกุล</th><th>สัญชาติ</th><th>เพศ</th><th>เบอร์โทร</th><th>Email</th><th>Username</th><th>Password</th></tr>
+        
+        <% for (d of data) {  
+            let dt=new Date(Date.parse(d.Date)) 
+            let df=`${dt.getDate()}-${dt.getMonth() + 1}-${dt.getFullYear()}`
+        %> 
+            <tr>
+                <td>
+                <a href="/edit/<%= d._id %>">แก้ไข</a> |
+                <a href="javascript: deleteUser('<%= d._id %>')">ลบ</a>
+                </td>
+                <td><%= df %></td>
+                <td><%= d.title%></td>
+                <td><%= d.Firstname%></td> <!--ห้ามเว้นวรรค ถ้าขึ้นบรรทัดใหม้เเล้วรันไม่ผ่าน ห้ามกด Format Document-->
+                <td><%= d.Lastname%></td>
+                <td><%= d.Nation%></td>
+                <td><%= d.Gentle %></td>
+                <td><%= d.Phone %></td>
+                <td><%= d.Email %></td>
+                <td><%= d.Username%></td>
+                <td><%= d.Password%></td>
+            </tr>
+        <% } %>
+       
+    </table>
+    <% } %>
+</body>
+</html>
